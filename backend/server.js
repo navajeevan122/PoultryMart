@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const dotenv = require('dotenv');
 const path = require('path');
+const fs = require('fs');
 const connectDB = require('./config/db');
 
 // Load environment variables
@@ -15,9 +16,11 @@ connectDB();
 const app = express();
 
 // Security Middlewares
-app.use(helmet({
-  crossOriginResourcePolicy: { policy: "cross-origin" }
-}));
+app.use(
+  helmet({
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
+  })
+);
 
 const allowedOrigins = [
   process.env.CLIENT_URL || 'http://localhost:5173',
@@ -28,10 +31,10 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      if (!origin || allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV === 'production') {
         callback(null, true);
       } else {
-        callback(null, true); // Allow during dev
+        callback(null, true);
       }
     },
     credentials: true,
@@ -41,7 +44,7 @@ app.use(
 // Rate Limiter
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 500, // Limit each IP to 500 requests per window
+  max: 500,
   standardHeaders: true,
   legacyHeaders: false,
   message: 'Too many requests from this IP, please try again later.',
@@ -66,6 +69,15 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'PoultryMart API is running' });
 });
 
+// Production: Serve frontend static build files if available
+const frontendDistPath = path.join(__dirname, '../frontend/dist');
+if (fs.existsSync(frontendDistPath)) {
+  app.use(express.static(frontendDistPath));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(frontendDistPath, 'index.html'));
+  });
+}
+
 // Global Error Handler
 app.use((err, req, res, next) => {
   console.error('[Unhandled Error]', err);
@@ -79,6 +91,6 @@ const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`====================================================`);
-  console.log(`🐔 PoultryMart Server running on http://localhost:${PORT}`);
+  console.log(`🐔 PoultryMart Server running on port ${PORT}`);
   console.log(`====================================================`);
 });

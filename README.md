@@ -81,3 +81,4 @@ git push -u origin main
 ### Production Deployment Options:
 - **Render.com**: Connect repo -> Root Directory empty -> Build: `npm run build` -> Start: `npm start` -> Set `MONGODB_URI` and `JWT_SECRET`.
 - **Vercel (Frontend) + Render (Backend)**: Set Root Directory `frontend` on Vercel with `VITE_API_URL` pointing to backend API.
+"# PoultryMart" 

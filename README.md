@@ -1,6 +1,6 @@
-# PoultryMart – Online Poultry Selling and Buying Platform
+# PoultryMart – Online Naatu Kollu Selling and Buying Platform
 
-**PoultryMart** is a production-ready MERN Marketplace application cleanly divided into **`frontend`** and **`backend`** projects.
+**PoultryMart** is a production-ready MERN Marketplace application connecting poultry farmers directly with buyers of authentic **Naatu Kollu (Country Chicken / Natu Kodi)**.
 
 Farmers can register, list their hens, cocks, and breeding stock with photos and videos, manage pricing/location/health info, and toggle WhatsApp availability.
 Customers (public visitors) do **NOT** require an account, login, or checkout. They can browse, filter, view photos/videos, and tap once to **Call** or **WhatsApp** the farmer directly.
@@ -15,7 +15,7 @@ Customers (public visitors) do **NOT** require an account, login, or checkout. T
 
 ---
 
-## 📁 Main Folder Contents
+## 📁 Project Structure
 
 ```text
 c:\Farm2Bird\
@@ -41,21 +41,22 @@ c:\Farm2Bird\
 │   ├── seed/               # Admin seed & sample listings script
 │   ├── uploads/            # Local media fallback storage
 │   ├── server.js           # Express main server
-│   ├── .env.example
 │   └── package.json
 │
-└── README.md               # Main Documentation
+├── .gitignore
+├── package.json
+└── README.md               # Main Documentation & Deployment Guide
 ```
 
 ---
 
-## ⚙️ How to Run Backend & Frontend
+## ⚙️ How to Run Locally
 
 ### 1. Backend Project (`/backend`)
 ```bash
 cd backend
 npm install
-npm run seed     # Seeds Admin (jeevan@poultrymart.com / Jeevan1234) & demo listings
+npm run seed     # Seeds Admin (jeevan@poultrymart.com / Jeevan1234) & Naatu Kollu listings
 npm start        # Starts Express API server on http://localhost:5000
 ```
 
@@ -65,9 +66,18 @@ cd frontend
 npm install
 npm run dev      # Starts Vite development server on http://localhost:5173
 ```
-"# Poultrymart" 
-"# Poultrymart" 
-"# Poultrymart" 
-"# PoultryMart" 
-"# PoultryMart" 
-"# PoultryMart" 
+
+---
+
+## 🚀 GitHub Push & Deployment Guide
+
+### Push to GitHub:
+```bash
+git add .
+git commit -m "Deploy: Production-ready PoultryMart Naatu Kollu Marketplace"
+git push -u origin main
+```
+
+### Production Deployment Options:
+- **Render.com**: Connect repo -> Root Directory empty -> Build: `npm run build` -> Start: `npm start` -> Set `MONGODB_URI` and `JWT_SECRET`.
+- **Vercel (Frontend) + Render (Backend)**: Set Root Directory `frontend` on Vercel with `VITE_API_URL` pointing to backend API.

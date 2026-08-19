@@ -10,7 +10,7 @@ Customers (public visitors) do **NOT** require an account, login, or checkout. T
 ## 🔑 Admin Credentials
 
 - **Email:** `jeevan@poultrymart.com`
-- **Password:** `Jeevan1234`
+- **Password:** 
 - **Role:** `admin`
 
 ---
